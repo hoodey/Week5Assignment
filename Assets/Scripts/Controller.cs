@@ -39,6 +39,7 @@ public class Controller : MonoBehaviour
                 clearOutputTimer = 3f;
                 guessed = false;
                 Model.IsGuessCorrect(playerAnswer);
+                Model.MaxGuessesReached();
             }
         }
 

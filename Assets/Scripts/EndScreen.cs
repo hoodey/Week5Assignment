@@ -8,7 +8,7 @@ public class EndScreen : MonoBehaviour
 {
     //Variables to init on program start
     [SerializeField] TMP_Text greeting;
-    TMP_Text score;
+    [SerializeField] TMP_Text score;
 
     // Start is called before the first frame update
     void Start()
@@ -16,7 +16,7 @@ public class EndScreen : MonoBehaviour
         //Set current score text on screen
         score.text = "The correct answer was: " + Model.currentAnswer + "\nYou guessed " + (Model.numGuesses+1).ToString() + " times!";
         //Output based on how many guesses
-        if (Model.numGuesses <= 5 )
+        if (Model.userGuess == Model.currentAnswer)
         {
             greeting.text = "Congratulations! You did it!";//Winning Guess
         }
