@@ -12,7 +12,7 @@ public class Controller : MonoBehaviour
     [SerializeField] TMP_InputField input;          //The input field for answers
     [SerializeField] TMP_Text output;
     [SerializeField] static float clearOutputTimer = 3f;
-    public string playerAnswer = "";                //Variable to hold answers
+    public string playerAnswer;                //Variable to hold answers
     bool guessed = false;
     [SerializeField] GameObject model;
     
@@ -20,15 +20,16 @@ public class Controller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerAnswer = "";
         input.characterLimit = 5;                   //Only allow 5 letter answers
-        input.onValidateInput += delegate (string input, int charIndex, char addedChar) { return ValidateAnswer(addedChar); };
+        input.onValidateInput += delegate (string input, int charIndex, char addedChar) { return ValidateAnswer(addedChar); }; //Extra Validation after the default field validation
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Clear the output every 3 seconds for wrong guesses
+        //Clear the output every 3 seconds for invalid guesses, transition to winscreen if you win
         if (guessed)
         {
             clearOutputTimer -= Time.deltaTime;
@@ -37,6 +38,7 @@ public class Controller : MonoBehaviour
                 output.text = "";
                 clearOutputTimer = 3f;
                 guessed = false;
+                Model.IsGuessCorrect(playerAnswer);
             }
         }
 
@@ -70,20 +72,5 @@ public class Controller : MonoBehaviour
         }
 
     }
-    //Function to control winning the game
-    public void WinGame()
-    {
 
-    }
-    //Function to control what happens when you lose the game
-    public void LoseGame()
-    {
-
-    }
-
-    //Function to reset game state
-    public void reset()
-    {
-        SceneManager.LoadScene("WordleScreen");
-    }
 }
