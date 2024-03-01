@@ -14,12 +14,15 @@ public class Controller : MonoBehaviour
     [SerializeField] static float clearOutputTimer = 3f;
     public string playerAnswer = "";                //Variable to hold answers
     bool guessed = false;
+    [SerializeField] GameObject model;
+    
 
     // Start is called before the first frame update
     void Start()
     {
         input.characterLimit = 5;                   //Only allow 5 letter answers
         input.onValidateInput += delegate (string input, int charIndex, char addedChar) { return ValidateAnswer(addedChar); };
+        
     }
 
     // Update is called once per frame
@@ -58,6 +61,8 @@ public class Controller : MonoBehaviour
         {
             Model.userGuess = playerAnswer;
             input.text = "";
+            Model m = model.GetComponent<Model>();
+            m.UpdateCells();
         }
         else
         {

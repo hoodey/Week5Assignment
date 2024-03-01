@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Model : MonoBehaviour
 {
@@ -10,7 +11,10 @@ public class Model : MonoBehaviour
     public static string currentAnswer;
     public static string userGuess = "";
     public static int numGuesses = -1;
-    public static Cell[,] cells = new Cell[6,5];
+    public static char[] letters = new char[5];
+    public static Color[] colors = new Color[5];
+    [SerializeField] public GameObject view;
+
 
     // Start is called before the first frame update
     void Start()
@@ -21,11 +25,7 @@ public class Model : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (userGuess != "")
-        {
-            View.UpdateView();
-            userGuess = "";
-        }
+        
     }
 
     public string Setup()
@@ -66,5 +66,32 @@ public class Model : MonoBehaviour
             return false;
     }
 
+    //Function to update cells array with values
+    public void UpdateCells()
+    {
 
+        for (int counter = 0; counter < userGuess.Length; counter++) //Green
+        {
+
+            colors[counter] = Color.gray;
+            for (int i = 0; i < currentAnswer.Length; i++) //Yellow for
+            {
+                if (currentAnswer[i] == userGuess[counter])
+                {
+                    colors[counter] = Color.yellow;
+                }
+            }
+            if (userGuess[counter] == currentAnswer[counter])
+            {
+                colors[counter] = Color.green;
+            }
+
+            letters[counter] = userGuess[counter];
+
+        }
+
+
+        View v = view.GetComponent<View>();
+        v.UpdateView(colors, letters);
+    }
 }
