@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class View : MonoBehaviour
 {
+    //Array to hold each row and square for updating
+    [SerializeField] GameObject[] rows;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +17,10 @@ public class View : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public static void UpdateView()
+    {
+
     }
 }
