@@ -7,7 +7,7 @@ using TMPro;
 
 public class View : MonoBehaviour
 {
-    //Array to hold each row and square for updating
+    //Array to hold each gameobject row for updating
     [SerializeField] GameObject[] rows;
     
 
@@ -22,7 +22,7 @@ public class View : MonoBehaviour
     {
         
     }
-
+    //Function to update the view of colors and letters on board for a row at a time
     public void UpdateView(Color[] colorz, char[] letterz)
     {
         GameObject imageChildren;

@@ -29,7 +29,7 @@ public class Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Clear the output every 3 seconds for invalid guesses, transition to winscreen if you win
+        //Clear the output every 3 seconds for invalid guesses, transition to winscreen if you win, losescreen if max guesses reached
         if (guessed)
         {
             clearOutputTimer -= Time.deltaTime;
@@ -45,6 +45,7 @@ public class Controller : MonoBehaviour
 
     }
 
+    //Function to determine if a character is alpha, if not, return null
     private char ValidateAnswer(char charToValidate)
     {
         //check if alpha
@@ -63,9 +64,14 @@ public class Controller : MonoBehaviour
         if (Model.IsValidGuess(playerAnswer))
         {
             Model.userGuess = playerAnswer;
+            Model.guesses[Model.numGuesses] = playerAnswer;
             input.text = "";
             Model m = model.GetComponent<Model>();
             m.UpdateCells();
+            if (playerAnswer != Model.currentAnswer)
+                output.text = "Nice one!";
+            else if (playerAnswer == Model.currentAnswer)
+                output.text = "You got it!";
         }
         else
         {
